@@ -1,0 +1,30 @@
+name: Deploy Flask App
+
+on:
+  push:
+    branches:
+      - main  # Runs when pushing to the "main" branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.1'  # Change to your preferred Python version
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install flask requests twilio apscheduler
+
